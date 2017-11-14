@@ -1,11 +1,22 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.jcraft.jsch.*;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 
 
+
+
 public class Main {
 
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws JSONException {
+        String jsonString = "";
         String user = "user";
         String password = "6973533175";
         String host = "83.212.102.71";
@@ -99,6 +110,66 @@ public class Main {
             in.close();
             br.close();
             channel.disconnect();
+
+
+
+
+
+
+            //Command Execution
+            Channel channel1=session.openChannel("exec");
+            System.out.println("Execute command 'iperf3 -c 10.0.0.6 -J'.");
+            ((ChannelExec)channel1).setCommand("iperf3 -c 10.0.0.7 -f k  -J");
+
+            channel1.setInputStream(null);
+            ((ChannelExec)channel).setErrStream(System.err);
+
+            InputStream in1 = channel1.getInputStream();
+            channel1.connect();
+
+            byte[] tmp1=new byte[1024];
+            while(true){
+                while(in1.available()>0){
+                    int i=in1.read(tmp1, 0, 1024);
+                    if(i<0)break;
+                    jsonString +=  new String(tmp1, 0, i);
+
+
+
+//                    System.out.println(new String(tmp1, 0, i));
+//                    JSONObject json = new JSONObject(jsonString);
+//                    System.out.println(json);
+                }
+                if(channel1.isClosed()){
+                    System.out.println("exit-status: "+channel1.getExitStatus());
+                    break;
+                }
+                try{Thread.sleep(1000);}catch(Exception ee){}
+                //                    JSONParser parser = new JSONParser();
+
+
+            }
+
+            in1.close();
+//            br.close();
+            channel1.disconnect();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             session.disconnect();
             System.out.println("Command Executed");
             System.out.println("DONE");
@@ -156,8 +227,28 @@ public class Main {
 
 
         } catch (Exception e) {
+            System.out.println("----------------------");
             System.err.print(e);
+            System.out.println("----------------------");
         }
+
+
+
+
+//        JSONObject json = new JSONObject(jsonString);
+
+//        GsonBuilder builder = new GsonBuilder();
+//        Object o = builder.create().fromJson(jsonString, Object.class);
+        Object o = new Gson().fromJson(jsonString, Object.class);
+//        Double bytes = o.get("end").get("sum_sent").get("bytes");
+        System.out.println("*************");
+        System.out.println(o);
+        System.out.println("*************");
+
+
+
+
+
     }
 }
 
