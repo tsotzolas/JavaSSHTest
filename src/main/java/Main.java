@@ -3,12 +3,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.jcraft.jsch.*;
 import jdk.nashorn.internal.parser.JSONParser;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
@@ -16,7 +17,10 @@ public class Main {
 
 
     public static void main(String[] args) throws JSONException {
-        String jsonString = "";
+//        String jsonString = "";
+        String finalString = "";
+        String server1 = "";
+        String server2 = "";
         String user = "user";
         String password = "6973533175";
         String host = "83.212.102.71";
@@ -33,6 +37,16 @@ public class Main {
             session.connect();
             System.out.println("Connection established.");
             System.out.println("Crating SFTP Channel.");
+
+
+
+
+
+
+            System.out.println(Httping.callHttping(session,"10.0.0.6"));
+
+            System.out.println(Httping.callHttping(session,"10.0.0.7"));
+
 
 
 
@@ -83,40 +97,14 @@ public class Main {
             newFile.delete();
 
 
-            //Command Execution
-            Channel channel=session.openChannel("exec");
-            System.out.println("Execute command 'sudo service haproxy restart'.");
-            ((ChannelExec)channel).setCommand("echo 6973533175 | sudo -S service haproxy reload");
-
-            channel.setInputStream(null);
-            ((ChannelExec)channel).setErrStream(System.err);
-
-            InputStream in = channel.getInputStream();
-            channel.connect();
-            byte[] tmp=new byte[1024];
-            while(true){
-                while(in.available()>0){
-                    int i=in.read(tmp, 0, 1024);
-                    if(i<0)break;
-                    System.out.print(new String(tmp, 0, i));
-                }
-                if(channel.isClosed()){
-                    System.out.println("exit-status: "+channel.getExitStatus());
-                    break;
-                }
-                try{Thread.sleep(1000);}catch(Exception ee){}
-            }
-
-            in.close();
-            br.close();
-            channel.disconnect();
+ReloadHaproxy.Reaload(session);
 
 
 
 
 
 
-            //Command Execution
+          /*  //Command Execution
             Channel channel1=session.openChannel("exec");
             System.out.println("Execute command 'iperf3 -c 10.0.0.6 -J'.");
             ((ChannelExec)channel1).setCommand("iperf3 -c 10.0.0.7 -f k  -J");
@@ -152,7 +140,10 @@ public class Main {
 
             in1.close();
 //            br.close();
-            channel1.disconnect();
+            channel1.disconnect();*/
+
+
+
 
 
 
@@ -173,8 +164,13 @@ public class Main {
             session.disconnect();
             System.out.println("Command Executed");
             System.out.println("DONE");
+            System.out.println(finalString);
 
-
+//            String t[] = finalString.split(" ");
+//            int k = ArrayUtils.indexOf( t, "min/avg/max" );
+//            System.out.println(ArrayUtils.indexOf( t, "min/avg/max" ));
+//            String j[] = t[k+2].split("/");
+//            System.out.println(j[1]);
 
 
 
@@ -228,7 +224,6 @@ public class Main {
 
         } catch (Exception e) {
             System.out.println("----------------------");
-            System.err.print(e);
             System.out.println("----------------------");
         }
 
@@ -239,10 +234,10 @@ public class Main {
 
 //        GsonBuilder builder = new GsonBuilder();
 //        Object o = builder.create().fromJson(jsonString, Object.class);
-        Object o = new Gson().fromJson(jsonString, Object.class);
+//        Object o = new Gson().fromJson(jsonString, Object.class);
 //        Double bytes = o.get("end").get("sum_sent").get("bytes");
         System.out.println("*************");
-        System.out.println(o);
+//        System.out.println(o);
         System.out.println("*************");
 
 
