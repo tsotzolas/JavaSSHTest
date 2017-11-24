@@ -18,7 +18,11 @@ public class HttpURLConnectionExample {
         System.out.println("Testing 1 - Send Http GET request");
         int i;
         for (i=0;i<100;i++){
-            http.sendGet();
+            try {
+                http.sendGet();
+            }catch (Exception e){
+
+            }
         }
 
     }
