@@ -12,6 +12,8 @@ public class Httping  {
 
     /**
      * Make Httping to the server to take the latency
+     * Httping reference site
+     * https://www.cyberciti.biz/faq/linux-unix-measure-lateceny-throughput-of-webserver/
      * @param session
      * @param server that I want to test
      * @return
@@ -21,8 +23,8 @@ public class Httping  {
     public static String callHttping (Session session,String server) throws JSchException, IOException {
         String finalstr = "";
         Channel channel=session.openChannel("exec");
-        System.out.println("Execute command 'httping  "+server+":8080 '.");
-        ((ChannelExec)channel).setCommand("httping  "+server+":8080 -c 5");
+        System.out.println("Execute command 'httping -fg "+server+":8080/lab '.");
+        ((ChannelExec)channel).setCommand("httping -fg  "+server+":8080/lab -c 20");
 
         channel.setInputStream(null);
         ((ChannelExec)channel).setErrStream(System.err);
