@@ -27,7 +27,11 @@ public class HttpURLConnectionExample {
 
     }
 
-    // HTTP GET request
+    /**
+     * This is for testing if balancer throw packet in the reload
+     * This method just send request to server
+     * @throws Exception
+     */
     private void sendGet() throws Exception {
 
         String url = "https://app.zapto.org";

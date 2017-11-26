@@ -54,7 +54,9 @@ public class Httping  {
         int k = ArrayUtils.indexOf( t, "min/avg/max" );
         //Take the k+2 value that have the times and then split to take the avg
         String j[] = t[k+2].split("/");
-
+        System.out.println("-----------------------------------------------");
+        System.out.println("Server "+ server+ " average latency is :"+ j[1]);
+        System.out.println("-----------------------------------------------");
         return j[1];
     }
 }

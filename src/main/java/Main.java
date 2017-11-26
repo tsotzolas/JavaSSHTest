@@ -1,22 +1,12 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.jcraft.jsch.*;
-import jdk.nashorn.internal.parser.JSONParser;
-import org.apache.commons.lang3.ArrayUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Main {
 
 
 
-    public static void main(String[] args) throws JSONException {
+    public static void main(String[] args) {
 //        String jsonString = "";
         String finalString = "";
         String server1 = "";
@@ -40,11 +30,7 @@ public class Main {
 
 
 
-
-
-
             System.out.println(Httping.callHttping(session,"10.0.0.6"));
-
             System.out.println(Httping.callHttping(session,"10.0.0.7"));
 
 
@@ -97,7 +83,8 @@ public class Main {
             newFile.delete();
 
 
-ReloadHaproxy.Reaload(session);
+            //Reload Haproxy
+                ReloadHaproxy.Reaload(session);
 
 
 

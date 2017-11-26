@@ -13,8 +13,8 @@ public class ReloadHaproxy {
     public static void Reaload (Session session) throws JSchException, IOException {
         //Command Execution
         Channel channel=session.openChannel("exec");
-        System.out.println("Execute command 'sudo service haproxy restart'.");
-        ((ChannelExec)channel).setCommand("echo 6973533175 | sudo -S service haproxy reload");
+        System.out.println("Execute command 'sudo service haproxy reload'.");
+        ((ChannelExec)channel).setCommand("echo 6973533175 | sudo -S service haproxy reload -sf");
 
         channel.setInputStream(null);
         ((ChannelExec)channel).setErrStream(System.err);
