@@ -38,7 +38,7 @@ public class Httping  {
                 int i=in.read(tmp, 0, 1024);
                 if(i<0)break;
                 String tempString =  new String(tmp, 0, i);
-                System.out.println(tempString);
+//                System.out.println(tempString);
                 finalstr+=tempString;
             }
             if(channel.isClosed()){

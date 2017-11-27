@@ -1,27 +1,28 @@
 import com.jcraft.jsch.*;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.io.*;
 
 
 public class Main {
 
-
+    private static final String SERVER1 = "10.0.0.6";
+    private static final String SERVER2 = "10.0.0.7";
+    private static final String HOST = "83.212.102.71";
+    private static final String USER = "user";
+    private static final String PASSWORD = "6973533175";
+    private static final Integer BALANCER_PORT = 2204;
+    private static final Integer SERVER1_PORT = 2206;
+    private static final Integer SERVER2_PORT = 2207;
 
     public static void main(String[] args) {
-//        String jsonString = "";
         String finalString = "";
-        String server1 = "";
-        String server2 = "";
-        String user = "user";
-        String password = "6973533175";
-        String host = "83.212.102.71";
-        int port = 2204;
-
         String remoteFile = "/etc/haproxy/scripts/ip.map";
 
         try {
             JSch jsch = new JSch();
-            Session session = jsch.getSession(user, host, port);
-            session.setPassword(password);
+            Session session = jsch.getSession(USER, HOST, BALANCER_PORT);
+            session.setPassword(PASSWORD);
             session.setConfig("StrictHostKeyChecking", "no");
             System.out.println("Establishing Connection...");
             session.connect();
@@ -29,62 +30,84 @@ public class Main {
             System.out.println("Crating SFTP Channel.");
 
 
-
-            System.out.println(Httping.callHttping(session,"10.0.0.6"));
-            System.out.println(Httping.callHttping(session,"10.0.0.7"));
-
-
-
-
-
-            //Read file from remote server via ssh
-            ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
-            sftpChannel.connect();
-            System.out.println("SFTP Channel created.");
-            InputStream out = null;
-            out = sftpChannel.get(remoteFile);
-            BufferedReader br = new BufferedReader(new InputStreamReader(out));
-            String line;
-
-            FileWriter fstreamWrite = new FileWriter("ip.map");
-            BufferedWriter out1 = new BufferedWriter(fstreamWrite);
-
-            //Parse the file and change the server's names.
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                String ip = (line.split(" ")[0]);
-                String server = (line.split(" ")[1]);
-                //Change the server name
-                //Todo Here must put the logic to change the server name
-                if (line.contains("server1")){
-                    line = line.replace(server, "server2");
-
-                }else{
-                    line = line.replace(server, "server1");
-                }
-                System.out.println(line);
-                System.out.println("------------------");
-
-                out1.write(line.toString());
-                out1.write("\n");
-
+            System.out.println("****************Httping Server1**********");
+            System.out.println("**                                     **");
+            try {
+                Httping.callHttping(session, SERVER1);
+            } catch (Exception ex) {
+                System.out.println("############### Exception ###############");
+                System.out.println(ex);
+                System.out.println("############### Exception ###############");
             }
 
-
-            out1.close();
-            out.close();
-
-
-            //Take the temp file
-            File newFile = new File("ip.map");
-            //Put the file in the remote server
-            sftpChannel.put(newFile.getAbsolutePath(),"/etc/haproxy/scripts");
-            //Delete the temp file
-            newFile.delete();
+            System.out.println("**                                     **");
+            System.out.println("****************Httping Server1**********");
 
 
-            //Reload Haproxy
+            System.out.println("****************Httping Server2**********");
+            System.out.println("**                                     **");
+            try {
+                Httping.callHttping(session, SERVER2);
+            } catch (Exception ex) {
+                System.out.println("############### Exception ###############");
+                System.out.println(ex);
+                System.out.println("############### Exception ###############");
+            }
+
+            System.out.println("**                                     **");
+            System.out.println("****************Httping Server2**********");
+
+
+            System.out.println("****************Uptime Server1**********");
+            System.out.println("**                                    **");
+            try {
+                Uptime.callUptime(HOST, SERVER1_PORT, SERVER2);
+            } catch (Exception ex) {
+                System.out.println("############### Exception ###############");
+                System.out.println(ex);
+                System.out.println("############### Exception ###############");
+            }
+            System.out.println("**                                    **");
+            System.out.println("****************Uptime Server1**********");
+
+
+            System.out.println("****************Uptime Server2**********");
+            System.out.println("**                                    **");
+            try {
+                Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
+            } catch (Exception ex) {
+                System.out.println("############### Exception ###############");
+                System.out.println(ex);
+                System.out.println("############### Exception ###############");
+            }
+            System.out.println("**                                    **");
+            System.out.println("****************Uptime Server2**********");
+
+
+            System.out.println("****************Manage File**********");
+            System.out.println("**                                 **");
+            try {
+                ManageFile.callManageFile(session, remoteFile);
+            } catch (Exception ex) {
+                System.out.println("############### Exception ###############");
+                System.out.println(ex);
+                System.out.println("############### Exception ###############");
+            }
+            System.out.println("**                                 **");
+            System.out.println("****************Manage File**********");
+
+
+            System.out.println("****************Reload Haproxy**********");
+            System.out.println("**                                   **");
+            try {
                 ReloadHaproxy.Reaload(session);
+            } catch (Exception ex) {
+                System.out.println("############### Exception ###############");
+                System.out.println(ex);
+                System.out.println("############### Exception ###############");
+            }
+            System.out.println("**                                   **");
+            System.out.println("****************Reload Haproxy**********");
 
 
 
@@ -130,24 +153,6 @@ public class Main {
             channel1.disconnect();*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             session.disconnect();
             System.out.println("Command Executed");
             System.out.println("DONE");
@@ -158,8 +163,6 @@ public class Main {
 //            System.out.println(ArrayUtils.indexOf( t, "min/avg/max" ));
 //            String j[] = t[k+2].split("/");
 //            System.out.println(j[1]);
-
-
 
 
 //            ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
@@ -174,11 +177,6 @@ public class Main {
 //            while ((line = br.readLine()) != null)
 //                System.out.println(line);
 //            br.close();
-
-
-
-
-
 
 
 //            String command = "ls";
@@ -202,19 +200,11 @@ public class Main {
 //            System.out.println(retValue);
 
 
-
-
-
-
-
-
-
         } catch (Exception e) {
-            System.out.println("----------------------");
-            System.out.println("----------------------");
+            System.out.println("############### Exception ###############");
+            System.out.println(e);
+            System.out.println("############### Exception ###############");
         }
-
-
 
 
 //        JSONObject json = new JSONObject(jsonString);
@@ -226,9 +216,6 @@ public class Main {
         System.out.println("*************");
 //        System.out.println(o);
         System.out.println("*************");
-
-
-
 
 
     }
