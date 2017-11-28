@@ -69,7 +69,7 @@ public class Uptime {
         //Take the k+2 value that have the times and then split to take the avg
         int k = ArrayUtils.indexOf( t, "average:" );
         System.out.println("-----------------------------------------------");
-        System.out.println("Server "+ server+ " average load in last 5 minute:"+ t[k+2].substring(0, t[k+2].length() - 1));
+        System.out.println("Server "+ server+ " average load in last 1 minute:"+ t[k+1].substring(0, t[k+1].length() - 1));
         System.out.println("-----------------------------------------------");
 
 
@@ -77,7 +77,7 @@ public class Uptime {
         System.out.println("Command Executed");
         System.out.println("DONE");
 
-        return t[12];
+        return t[k+1].substring(0, t[k+1].length() - 1);
 
 
 
