@@ -39,13 +39,13 @@ public class MainForServer2 {
 
                 fw.write("Latency |  Load  \n");//appends the string to the file
 
-                    for (int i=0;i<3;i++) {
+                    for (int i=0;i<20;i++) {
                         // true = append file
 //                        FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
                         fw.write(Httping.callHttping(session, SERVER2)+"     |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "\n");//appends the string to the file
 //                        fw.close();
 //                        bw.write(");
-                        Thread.sleep(3000);
+                        Thread.sleep(2000);
                     }
 
             } catch (Exception ex) {

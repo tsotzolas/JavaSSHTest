@@ -24,7 +24,7 @@ public class Httping  {
         String finalstr = "";
         Channel channel=session.openChannel("exec");
         System.out.println("Execute command 'httping -fg "+server+":8080/lab '.");
-        ((ChannelExec)channel).setCommand("httping -fg  "+server+":8080/lab -c 10");
+        ((ChannelExec)channel).setCommand("httping -fg -G -g "+server+":8080/lab/login.jsf -c 20");
 
         channel.setInputStream(null);
         ((ChannelExec)channel).setErrStream(System.err);
