@@ -1,16 +1,18 @@
+import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
+public class ResponceTime {
 
-public class HttpURLConnectionExample {
+    private static final String USER_AGENT = "Mozilla/5.0";
 
-    private final String USER_AGENT = "Mozilla/5.0";
 
-    public static void main(String[] args) throws Exception {
+
+
+
+    public static String callResponceTime(){
 
         HttpURLConnectionExample http = new HttpURLConnectionExample();
 
@@ -21,7 +23,7 @@ public class HttpURLConnectionExample {
         for (i = 0; i < 10; i++) {
             try {
 
-                long time = http.sendGet();
+                long time = sendGet();
                 if (i != 0) {
                     responceTime += Double.valueOf(time);
                 }
@@ -29,9 +31,12 @@ public class HttpURLConnectionExample {
 
             }
         }
-        System.out.println("Final Responce time is : " + responceTime/9 );
+
+        return  String.format( "%.2f",(responceTime/9));
 
     }
+
+
 
     /**
      * This is for testing if balancer throw packet in the reload
@@ -39,7 +44,8 @@ public class HttpURLConnectionExample {
      *
      * @throws Exception
      */
-    private long sendGet() throws Exception {
+    private static long sendGet() throws Exception {
+
         long startTime = System.currentTimeMillis();
 //        System.out.println("Start Time"+ startTime);
         String url = "https://app.zapto.org/lab/login.jsf";
@@ -57,7 +63,7 @@ public class HttpURLConnectionExample {
 
         int responseCode = con.getResponseCode();
 //        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+//        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -73,12 +79,18 @@ public class HttpURLConnectionExample {
         //print result
 //        System.out.println(response.toString());
         long totalTime = endTime - startTime;
-        System.out.println(totalTime);
+//        System.out.println(totalTime);
+
 
         return totalTime;
 
     }
 
+
+
+
+
+
+
+
 }
-
-

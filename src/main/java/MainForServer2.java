@@ -37,14 +37,16 @@ public class MainForServer2 {
             FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
             try {
 
-                fw.write("Latency |  Load  \n");//appends the string to the file
+                fw.write("Latency |  Load   | Responce Time  \n");//appends the string to the file
 
                     for (int i=0;i<20;i++) {
                         // true = append file
 //                        FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
-                        fw.write(Httping.callHttping(session, SERVER2)+"     |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "\n");//appends the string to the file
+                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "\n");//appends the string to the file
 //                        fw.close();
 //                        bw.write(");
+
+//                        System.out.println(ResponceTime.callResponceTime());
                         Thread.sleep(2000);
                     }
 
