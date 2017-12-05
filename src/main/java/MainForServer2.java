@@ -37,17 +37,18 @@ public class MainForServer2 {
             FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
             try {
 
-                fw.write("Latency |  Load   | Responce Time  \n");//appends the string to the file
+                fw.write("Latency      |  Load   | Responce Time| Responce Time Curl  \n");//appends the string to the file
 
-                    for (int i=0;i<20;i++) {
-                        // true = append file
-//                        FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
-                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "\n");//appends the string to the file
-//                        fw.close();
-//                        bw.write(");
+                    for (int i=0;i<40;i++) {
+
+//                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
+//                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
+                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file
+
+//                        System.out.println(ResponceTimeCurl.responceTime(session,SERVER2));
 
 //                        System.out.println(ResponceTime.callResponceTime());
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
                     }
 
             } catch (Exception ex) {
@@ -58,13 +59,13 @@ public class MainForServer2 {
                 fw.close();
             }
 
-            try {
-                Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
-            } catch (Exception ex) {
-                System.out.println("############### Exception ###############");
-                System.out.println(ex);
-                System.out.println("############### Exception ###############");
-            }
+//            try {
+//                Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
+//            } catch (Exception ex) {
+//                System.out.println("############### Exception ###############");
+//                System.out.println(ex);
+//                System.out.println("############### Exception ###############");
+//            }
 
 
 

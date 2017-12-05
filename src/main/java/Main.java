@@ -61,7 +61,7 @@ public class Main {
             System.out.println("****************Uptime Server1**********");
             System.out.println("**                                    **");
             try {
-                Uptime.callUptime(HOST, SERVER1_PORT, SERVER2);
+//                Uptime.callUptime(HOST, SERVER1_PORT, SERVER2);
             } catch (Exception ex) {
                 System.out.println("############### Exception ###############");
                 System.out.println(ex);
@@ -74,7 +74,7 @@ public class Main {
             System.out.println("****************Uptime Server2**********");
             System.out.println("**                                    **");
             try {
-                Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
+//                Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
             } catch (Exception ex) {
                 System.out.println("############### Exception ###############");
                 System.out.println(ex);
