@@ -71,7 +71,7 @@ public class HttpURLConnectionExample {
         long endTime = System.currentTimeMillis();
 //        System.out.println("Finish Time"+ endTime);
         //print result
-//        System.out.println(response.toString());
+        System.out.println(response.toString());
         long totalTime = endTime - startTime;
         System.out.println(totalTime);
 

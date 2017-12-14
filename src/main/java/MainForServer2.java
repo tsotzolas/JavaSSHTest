@@ -20,6 +20,8 @@ public class MainForServer2 {
 
     private static final String FILENAME = "/home/tsotzo/Desktop/filename.txt";
 
+    private static final double  T = 1.6;
+
     public static void main(String[] args) throws IOException {
         String finalString = "";
 
@@ -34,22 +36,57 @@ public class MainForServer2 {
             System.out.println("Crating SFTP Channel.");
 
 
+            double satisfied = 0;
+            double tolerating = 0;
+            double finalScore = 0;
+
+            double averageLoad = 0;
+
+
+
+
+
+
             FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
             try {
 
                 fw.write("Latency      |  Load   | Responce Time| Responce Time Curl  \n");//appends the string to the file
 
-                    for (int i=0;i<40;i++) {
+                    for (int i=0;i<10;i++) {
+                        System.out.println(i);
 
+                        double rt = 0;
+                        rt = ApdexMeasure.responceTime();
+
+                        double ut = 0;
+                        ut = Double.valueOf(Uptime.callUptime(HOST, SERVER2_PORT, SERVER2).replace(",","."));
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
-                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file
+//                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file
+                        fw.write(rt+ "        |        "+ut+"                  | "+"\n" );//appends the string to the file
 
 //                        System.out.println(ResponceTimeCurl.responceTime(session,SERVER2));
 
 //                        System.out.println(ResponceTime.callResponceTime());
-                        Thread.sleep(500);
+//                        Thread.sleep(500);
+
+                            if (rt < T) {
+                                satisfied += 1;
+                            }
+
+                            if (rt < 4 * T && rt > T) {
+                                tolerating += 1;
+                            }
+
+                        averageLoad += ut;
+
                     }
+            finalScore = (satisfied + (tolerating/2))/10;
+                System.out.println("Final Score : "+finalScore);
+                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
+                fw.write("Final Score : "+finalScore+"\n" );//appends the string to the file
+                fw.write("Average Load : "+averageLoad/10+"\n" );//appends the string to the file
+                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
 
             } catch (Exception ex) {
                 System.out.println("############### Exception ###############");
