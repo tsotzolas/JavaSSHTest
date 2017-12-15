@@ -5,6 +5,7 @@ import com.jcraft.jsch.Session;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,23 +18,25 @@ public class ApdexMeasure {
 
 
 
-    public static double responceTime()  {
+    public static double responceTime() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/home/tsotzo/chromedriver");
-
+//        System.setProperty("webdriver.gecko.driver", "/home/tsotzo/geckodriver");
         WebDriver driver = new ChromeDriver();
+//        WebDriver driver = new FirefoxDriver();
         driver.get("https://app.zapto.org/lab/login.jsf");
+        Thread.sleep(1000);
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         // time of the process of navigation and page load
         double loadTime = (Double) js.executeScript(
                 "return (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000");
-        System.out.print(loadTime + " seconds"); // 5.15 seconds
+        System.out.print(loadTime + " seconds \n"); // 5.15 seconds
 
         driver.close();
         return loadTime;
     }
 
 
-    public static double apdexScore(double t){
+    public static double apdexScore(double t) throws InterruptedException {
         double satisfied = 0;
         double tolerating = 0;
         double finalScore = 0;

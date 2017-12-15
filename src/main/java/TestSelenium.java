@@ -16,9 +16,12 @@ public class TestSelenium {
 
     public static void main(String[] args) throws Exception {
 
-        System.setProperty("webdriver.chrome.driver", "/home/tsotzo/chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "/home/tsotzo/chromedriver");
+        System.setProperty("webdriver.gecko.driver", "geckodriver");
 
-        WebDriver driver = new ChromeDriver();
+//        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new FirefoxDriver();
+
         driver.get("https://app.zapto.org/lab/login.jsf");
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         // time of the process of navigation and page load
