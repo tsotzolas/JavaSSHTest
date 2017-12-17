@@ -5,7 +5,9 @@ import com.jcraft.jsch.Session;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,10 +21,16 @@ public class ApdexMeasure {
 
 
     public static double responceTime() throws InterruptedException {
-//        System.setProperty("webdriver.chrome.driver", "/home/tsotzo/IdeaProjects/JavaSSHTest/chromedriver");
-        System.setProperty("webdriver.gecko.driver", "../geckodriver");
-//        WebDriver driver = new ChromeDriver();
-        WebDriver driver = new FirefoxDriver();
+        final DesiredCapabilities caps = DesiredCapabilities.chrome();
+        final ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setBinary("/usr/bin/chromium-browser");
+        chromeOptions.addArguments("--headless", "--window-size=1060x780", "--disable-gpu");
+        caps.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+
+        System.setProperty("webdriver.chrome.driver", "/home/tsotzo/IdeaProjects/JavaSSHTest/chromedriver");
+//        System.setProperty("webdriver.gecko.driver", "../geckodriver");
+        WebDriver driver = new ChromeDriver();
+//        WebDriver driver = new FirefoxDriver();
         driver.get("https://app.zapto.org/lab/login.jsf");
         Thread.sleep(1000);
         final JavascriptExecutor js = (JavascriptExecutor) driver;
