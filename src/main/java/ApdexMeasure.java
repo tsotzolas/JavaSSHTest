@@ -31,7 +31,7 @@ public class ApdexMeasure {
 //        System.setProperty("webdriver.gecko.driver", "../geckodriver");
         WebDriver driver = new ChromeDriver();
 //        WebDriver driver = new FirefoxDriver();
-        driver.get("http://10.0.0.7:8080/lab/login.jsf");
+        driver.get("10.0.0.7:8080/lab/login.jsf");
         Thread.sleep(1000);
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         // time of the process of navigation and page load
