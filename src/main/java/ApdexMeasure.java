@@ -27,7 +27,7 @@ public class ApdexMeasure {
         chromeOptions.addArguments("--headless", "--window-size=1060x780", "--disable-gpu");
         caps.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
-        System.setProperty("webdriver.chrome.driver", "/home/tsotzo/IdeaProjects/JavaSSHTest/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "../chromedriver");
 //        System.setProperty("webdriver.gecko.driver", "../geckodriver");
         WebDriver driver = new ChromeDriver();
 //        WebDriver driver = new FirefoxDriver();
