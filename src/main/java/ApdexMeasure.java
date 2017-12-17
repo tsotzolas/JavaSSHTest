@@ -19,7 +19,7 @@ public class ApdexMeasure {
 
 
     public static double responceTime() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "./chromedriver");
+        System.setProperty("webdriver.chrome.driver", "../chromedriver");
 //        System.setProperty("webdriver.gecko.driver", "../geckodriver");
         WebDriver driver = new ChromeDriver();
 //        WebDriver driver = new FirefoxDriver();
