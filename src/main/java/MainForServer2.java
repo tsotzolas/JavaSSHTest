@@ -27,14 +27,14 @@ public class MainForServer2 {
         String finalString = "";
 
         try {
-            JSch jsch = new JSch();
-            Session session = jsch.getSession(USER, SERVER2, 22);
-            session.setPassword(PASSWORD);
-            session.setConfig("StrictHostKeyChecking", "no");
-            System.out.println("Establishing Connection...");
-            session.connect();
-            System.out.println("Connection established.");
-            System.out.println("Crating SFTP Channel.");
+//            JSch jsch = new JSch();
+//            Session session = jsch.getSession(USER, HOST, BALANCER_PORT);
+//            session.setPassword(PASSWORD);
+//            session.setConfig("StrictHostKeyChecking", "no");
+//            System.out.println("Establishing Connection...");
+//            session.connect();
+//            System.out.println("Connection established.");
+//            System.out.println("Crating SFTP Channel.");
 
 
             double satisfied = 0;
@@ -116,7 +116,7 @@ public class MainForServer2 {
 
 
 
-            session.disconnect();
+//            session.disconnect();
             System.out.println("Command Executed");
             System.out.println("DONE");
             System.out.println(finalString);
