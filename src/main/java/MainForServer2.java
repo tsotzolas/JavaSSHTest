@@ -28,7 +28,7 @@ public class MainForServer2 {
 
         try {
             JSch jsch = new JSch();
-            Session session = jsch.getSession(USER, HOST, BALANCER_PORT);
+            Session session = jsch.getSession(USER, SERVER2, 22);
             session.setPassword(PASSWORD);
             session.setConfig("StrictHostKeyChecking", "no");
             System.out.println("Establishing Connection...");
