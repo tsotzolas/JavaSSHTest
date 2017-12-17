@@ -27,11 +27,11 @@ public class ApdexMeasure {
         chromeOptions.addArguments("--headless", "--window-size=1060x780", "--disable-gpu");
         caps.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 //
-        System.setProperty("webdriver.chrome.driver", "../chromedriver");
+        System.setProperty("webdriver.chrome.driver", " /home/user/test/JavaSSHTest/chromedriver");
 //        System.setProperty("webdriver.gecko.driver", "../geckodriver");
         WebDriver driver = new ChromeDriver();
 //        WebDriver driver = new FirefoxDriver();
-        driver.get("10.0.0.7:8080/lab/login.jsf");
+        driver.get("https://google.com");
         Thread.sleep(1000);
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         // time of the process of navigation and page load
