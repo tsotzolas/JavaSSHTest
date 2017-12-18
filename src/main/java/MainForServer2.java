@@ -43,11 +43,6 @@ public class MainForServer2 {
 
             double averageLoad = 0;
 
-
-
-
-
-
             FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
             try {
 
@@ -61,7 +56,8 @@ public class MainForServer2 {
                         System.out.println(rt);
 
                         double ut = 0;
-                        String uptime =Uptime.callUptime(SERVER2, 22, SERVER2);
+                        String uptime = "";
+                        uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
                         if (uptime.contains(",")){
                             uptime = uptime.replace(",",".");
                         }
