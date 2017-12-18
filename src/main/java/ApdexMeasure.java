@@ -2,6 +2,7 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.apache.xpath.SourceTree;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -31,33 +32,41 @@ public class ApdexMeasure {
 //        System.setProperty("webdriver.chrome.driver", "../chromedriver");
 //        System.setProperty("webdriver.gecko.driver", "../geckodriver");
 //        WebDriver driver = new ChromeDriver();
+        WebDriver driver = null;
+        try {
 
-        File file = new File("/home/user/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
+            File file = new File("/home/user/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
 
-        System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
+            System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
 
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setJavascriptEnabled(true);
-        caps.setCapability("cssSelectorsEnabled", false);
-        caps.setCapability("applicationCacheEnabled", true);
-        caps.setCapability("acceptSslCerts",true);
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.setJavascriptEnabled(true);
+            caps.setCapability("cssSelectorsEnabled", false);
+            caps.setCapability("applicationCacheEnabled", true);
+            caps.setCapability("acceptSslCerts", true);
 //        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,phantomJsPath);
 
 
-        WebDriver driver = new PhantomJSDriver();
-        driver = new PhantomJSDriver(caps);
-        driver.get("http://10.0.0.7:8080/lab/login.jsf");
+            driver = new PhantomJSDriver();
+            driver = new PhantomJSDriver(caps);
+            driver.get("http://10.0.0.7:8080/lab/login.jsf");
 //        WebDriver driver = new FirefoxDriver();
 //        driver.get("https://app.zapto.org/lab/login.jsf");
 //        Thread.sleep(1000);
-        final JavascriptExecutor js = (JavascriptExecutor) driver;
-        // time of the process of navigation and page load
-        double loadTime = (Double) js.executeScript(
-                "return (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000");
-        System.out.print(loadTime + " seconds \n"); // 5.15 seconds
+            final JavascriptExecutor js = (JavascriptExecutor) driver;
+            // time of the process of navigation and page load
+            double loadTime = (Double) js.executeScript(
+                    "return (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000");
+            System.out.print(loadTime + " seconds \n"); // 5.15 seconds
 
-        driver.close();
-        return loadTime;
+            driver.close();
+            return loadTime;
+        }catch (Exception ex){
+            System.out.println("****************"+ ex);
+        }finally {
+            driver.close();
+        }
+        return 0;
     }
 
 
