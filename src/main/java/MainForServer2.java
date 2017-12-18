@@ -95,11 +95,11 @@ public class MainForServer2 {
 //                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
 
                 fw.write("Apdex Score   |   Load       | \n");//appends the string to the file
-                fw.write(finalScore+ "|   "+averageLoad+"   | \n");//appends the string to the file
+                fw.write(finalScore+ "           |   "+averageLoad+"   | \n");//appends the string to the file
 
 
             } catch (Exception ex) {
-                System.out.println("############### Exception ###############");
+                System.out.println("######1######### Exception ###############");
                 System.out.println(ex);
                 System.out.println("############### Exception ###############");
             }finally {
