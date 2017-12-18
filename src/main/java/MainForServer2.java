@@ -61,7 +61,7 @@ public class MainForServer2 {
                         System.out.println(rt);
 
                         double ut = 0;
-                        String uptime =Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
+                        String uptime =Uptime.callUptime(SERVER2, 22, SERVER2);
                         if (uptime.contains(",")){
                             uptime = uptime.replace(",",".");
                         }
