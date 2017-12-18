@@ -19,7 +19,7 @@ public class MainForServer2 {
     private static final Integer SERVER2_PORT = 2207;
 
 //    private static final String FILENAME = "/filename.txt";
-    private static final String FILENAME = "/home/tsotzo/Desktop/filename.txt";
+    private static final String FILENAME = "/home/user/filename.txt";
 
     private static final double  T = 1.3;
 
