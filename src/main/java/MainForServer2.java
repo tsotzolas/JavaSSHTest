@@ -21,7 +21,7 @@ public class MainForServer2 {
 //    private static final String FILENAME = "/filename.txt";
     private static final String FILENAME = "/home/user/filename.txt";
 
-    private static final double  T = 1.3;
+    private static final double  T = 1;
 
     public static void main(String[] args) throws IOException {
         String finalString = "";
@@ -51,7 +51,7 @@ public class MainForServer2 {
             FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
             try {
 
-                fw.write("Time to load  page   |  Load       | \n");//appends the string to the file
+//                fw.write("Time to load  page   |  Load       | \n");//appends the string to the file
 
                     for (int i=0;i<10;i++) {
                         System.out.println(i);
@@ -69,14 +69,14 @@ public class MainForServer2 {
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file
-                        fw.write(rt+ "                |        "+ut+"                  | "+"\n" );//appends the string to the file
+//                        fw.write(rt+ "                |        "+ut+"                  | "+"\n" );//appends the string to the file
 
 //                        System.out.println(ResponceTimeCurl.responceTime(session,SERVER2));
 
 //                        System.out.println(ResponceTime.callResponceTime());
                         Thread.sleep(500);
 
-                            if (rt < T) {
+                            if (rt <= T) {
                                 satisfied += 1;
                             }
 
@@ -90,9 +90,13 @@ public class MainForServer2 {
             finalScore = (satisfied + (tolerating/2))/10;
                 System.out.println("Final Score : "+finalScore);
                 fw.write("---------------------------------------------"+"\n" );//appends the string to the file
-                fw.write("Final Score : "+finalScore+"\n" );//appends the string to the file
-                fw.write("Average Load : "+averageLoad/10+"\n" );//appends the string to the file
-                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
+//                fw.write("Final Score : "+finalScore+"\n" );//appends the string to the file
+//                fw.write("Average Load : "+averageLoad/10+"\n" );//appends the string to the file
+//                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
+
+                fw.write("Apdex Score   |   Load       | \n");//appends the string to the file
+                fw.write(finalScore+ "|   "+averageLoad+"   | \n");//appends the string to the file
+
 
             } catch (Exception ex) {
                 System.out.println("############### Exception ###############");
