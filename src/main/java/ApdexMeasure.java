@@ -64,6 +64,7 @@ public class ApdexMeasure {
         }catch (Exception ex){
             System.out.println("****************"+ ex);
         }finally {
+            if (!driver.toString().contains("(null)"))
             driver.close();
         }
         return 0;
