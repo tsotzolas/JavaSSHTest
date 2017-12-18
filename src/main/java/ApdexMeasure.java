@@ -49,7 +49,7 @@ public class ApdexMeasure {
         driver.get("http://10.0.0.7:8080/lab/login.jsf");
 //        WebDriver driver = new FirefoxDriver();
 //        driver.get("https://app.zapto.org/lab/login.jsf");
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         // time of the process of navigation and page load
         double loadTime = (Double) js.executeScript(

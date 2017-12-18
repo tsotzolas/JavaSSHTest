@@ -74,7 +74,7 @@ public class MainForServer2 {
 //                        System.out.println(ResponceTimeCurl.responceTime(session,SERVER2));
 
 //                        System.out.println(ResponceTime.callResponceTime());
-                        Thread.sleep(500);
+//                        Thread.sleep(500);
 
                             if (rt <= T) {
                                 satisfied += 1;
