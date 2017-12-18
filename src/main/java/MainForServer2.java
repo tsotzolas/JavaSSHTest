@@ -58,6 +58,7 @@ public class MainForServer2 {
 
                         double rt = 0;
                         rt = ApdexMeasure.responceTime();
+                        System.out.println(rt);
 
                         double ut = 0;
                         String uptime =Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
