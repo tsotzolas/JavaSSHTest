@@ -46,7 +46,7 @@ public class ApdexMeasure {
 
         WebDriver driver = new PhantomJSDriver();
         driver = new PhantomJSDriver(caps);
-        driver.get("https://app.zapto.org/lab/login.jsf");
+        driver.get("http://10.0.0.7:8080/lab/login.jsf");
 //        WebDriver driver = new FirefoxDriver();
 //        driver.get("https://app.zapto.org/lab/login.jsf");
         Thread.sleep(1000);
