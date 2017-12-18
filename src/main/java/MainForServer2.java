@@ -54,7 +54,7 @@ public class MainForServer2 {
                         double rt = 0;
                         rt = ApdexMeasure.responceTime();
                         System.out.println(rt);
-
+                        Thread.sleep(500);
                         double ut = 0;
                         String uptime = "";
                         uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
