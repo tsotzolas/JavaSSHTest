@@ -67,17 +67,27 @@ public class Uptime {
         //Take the information that I want from the whole string
         String t[] = finalstr.split(" ");
         //Take the k+2 value that have the times and then split to take the avg
-        int k = ArrayUtils.indexOf( t, "average:" );
-        System.out.println("-----------------------------------------------");
-        System.out.println("Server "+ server+ " average load in last 1 minute:"+ t[k+1].substring(0, t[k+1].length() - 1));
-        System.out.println("-----------------------------------------------");
+        int k = 0;
+        if (t.length>0) {
+            k = ArrayUtils.indexOf(t, "average:");
+            System.out.println("-----------------------------------------------");
+            System.out.println("Server " + server + " average load in last 1 minute:" + t[k + 1].substring(0, t[k + 1].length() - 1));
+            System.out.println("-----------------------------------------------");
 
 
         session.disconnect();
         System.out.println("Command Executed");
         System.out.println("DONE");
+            return t[k+1].substring(0, t[k+1].length() - 1);
+        }else{
 
-        return t[k+1].substring(0, t[k+1].length() - 1);
+            System.out.println("-----------------------------------------------");
+            System.out.println("Error in uptime");
+            System.out.println("-----------------------------------------------");
+            return "0";
+        }
+
+
 
 
 
