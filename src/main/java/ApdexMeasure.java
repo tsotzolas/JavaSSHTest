@@ -59,13 +59,12 @@ public class ApdexMeasure {
                     "return (window.performance.timing.loadEventEnd - window.performance.timing.navigationStart) / 1000");
             System.out.print(loadTime + " seconds \n"); // 5.15 seconds
 
-            driver.close();
+//            driver.close();
             return loadTime;
         }catch (Exception ex){
             System.out.println("****************"+ ex);
         }finally {
-            if (driver.getTitle()!=null)
-            driver.close();
+            driver.quit();
         }
         return 0;
     }
