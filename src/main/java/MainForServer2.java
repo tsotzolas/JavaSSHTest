@@ -18,10 +18,10 @@ public class MainForServer2 {
     private static final Integer SERVER1_PORT = 2206;
     private static final Integer SERVER2_PORT = 2207;
 
-//    private static final String FILENAME = "/filename.txt";
     private static final String FILENAME = "/home/user/filename.txt";
+//    private static final String FILENAME = "/home/tsotzo/Desktop/filename.txt";
 
-    private static final double  T = 1;
+    private static final double  T = 1.6;
 
     public static void main(String[] args) throws IOException {
         String finalString = "";
@@ -42,12 +42,15 @@ public class MainForServer2 {
             double finalScore = 0;
 
             double averageLoad = 0;
+            double l1 = 0;
+            double l2 = 0;
 
             FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
             try {
 
 //                fw.write("Time to load  page   |  Load       | \n");//appends the string to the file
 
+                long startTime = System.currentTimeMillis();
                     for (int i=0;i<10;i++) {
                         System.out.println(i);
 
@@ -58,6 +61,7 @@ public class MainForServer2 {
                         double ut = 0;
                         String uptime = "";
                         uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
+//                        uptime = Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
                         System.out.println("Uptime----->"+ uptime);
                         if (uptime.contains(",")){
                             uptime = uptime.replace(",",".");
@@ -68,6 +72,14 @@ public class MainForServer2 {
                         }else {
                             ut = Double.valueOf(uptime);
                         }
+
+                        if (i==0){
+                            l1 = ut;
+                        }
+                        if(i==9){
+                            l2 = ut;
+                        }
+
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file
@@ -89,6 +101,8 @@ public class MainForServer2 {
                         averageLoad += ut;
 
                     }
+                long endTime = System.currentTimeMillis();
+
             finalScore = (satisfied + (tolerating/2))/10;
                 System.out.println("Final Score : "+finalScore);
                 fw.write("---------------------------------------------"+"\n" );//appends the string to the file
@@ -96,8 +110,26 @@ public class MainForServer2 {
 //                fw.write("Average Load : "+averageLoad/10+"\n" );//appends the string to the file
 //                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
 
-                fw.write("Apdex Score   |   Load       | \n");//appends the string to the file
-                fw.write(finalScore+ "           |   "+averageLoad/10+"   | \n");//appends the string to the file
+
+
+
+                //
+                long totalTime = (endTime - startTime);
+
+                double test = l2 - l1 ;
+//                if (test<0){
+//                    test = test*(-1);
+//                }
+                double dl = test/(Double.valueOf(totalTime)/1000);
+
+
+                fw.write("Apdex Score   |   DLoad       | \n");//appends the string to the file
+                fw.write(finalScore+ "           |   "+dl+"   | \n");//appends the string to the file
+
+
+
+
+
 
 
             } catch (Exception ex) {
