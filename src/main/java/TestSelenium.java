@@ -22,6 +22,9 @@ public class TestSelenium {
 //        WebDriver driver = new ChromeDriver();
         WebDriver driver = new FirefoxDriver();
 
+//        String uptime = Uptime.callUptime("83.212.102.71", 2207, "10.0.0.7");
+//        System.out.println(uptime);
+
         driver.get("https://app.zapto.org/lab/login.jsf");
         final JavascriptExecutor js = (JavascriptExecutor) driver;
         // time of the process of navigation and page load
