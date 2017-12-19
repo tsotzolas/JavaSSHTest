@@ -83,7 +83,7 @@ public class Uptime {
 
         }
 
-        return "20";
+        return "0";
     }
 
 }
