@@ -65,7 +65,7 @@ public class Uptime {
             //Take the information that I want from the whole string
             //Take the k+2 value that have the times and then split to take the avg
 
-            String t = finalstr.substring(0, finalstr.length() - 3);
+            String t = finalstr.substring(0, finalstr.length() - 2);
 
                 System.out.println("-----------------------------------------------");
                 System.out.println("Server " + server + " average load in last 1 minute:" +t );
