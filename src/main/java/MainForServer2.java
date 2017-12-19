@@ -67,7 +67,7 @@ public class MainForServer2 {
                             uptime = uptime.replace(",",".");
                         }
                         if (uptime.equals("0")){
-                            ut = 20;
+                            ut = averageLoad/(i+1);
                             System.out.println("****************Error Uptime***************");
                         }else {
                             ut = Double.valueOf(uptime);
