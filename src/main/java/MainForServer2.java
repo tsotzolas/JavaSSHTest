@@ -123,8 +123,8 @@ public class MainForServer2 {
                 double dl = test/(Double.valueOf(totalTime)/1000);
 
 
-                fw.write("Apdex Score   |   DLoad       | \n");//appends the string to the file
-                fw.write(finalScore+ "           |   "+dl+"   | \n");//appends the string to the file
+                fw.write("Apdex Score   |   DLoad       | Average Load  \n");//appends the string to the file
+                fw.write(finalScore+ "           |   "+dl+"    |    "+ averageLoad/10+" \n");//appends the string to the file
 
 
 
