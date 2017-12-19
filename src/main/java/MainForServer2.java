@@ -21,7 +21,7 @@ public class MainForServer2 {
     private static final String FILENAME = "/home/user/filename.txt";
 //    private static final String FILENAME = "/home/tsotzo/Desktop/filename.txt";
 
-    private static final double  T = 1.6;
+    private static final double  T = 1;
 
     public static void main(String[] args) throws IOException {
         String finalString = "";
