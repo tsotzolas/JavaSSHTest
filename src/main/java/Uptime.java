@@ -36,7 +36,7 @@ public class Uptime {
             String finalstr = "";
             Channel channel = session.openChannel("exec");
             System.out.println("Execute command 'uptime  " + server);
-            ((ChannelExec) channel).setCommand("uptime");
+            ((ChannelExec) channel).setCommand("uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3 }'");
 
             channel.setInputStream(null);
             ((ChannelExec) channel).setErrStream(System.err);
@@ -63,27 +63,19 @@ public class Uptime {
 
 
             //Take the information that I want from the whole string
-            String t[] = finalstr.split(" ");
             //Take the k+2 value that have the times and then split to take the avg
-            int k = 0;
-            if (t.length > 0) {
-                k = ArrayUtils.indexOf(t, "average:");
+
+            String t = removeLastCharacter(finalstr);
+
                 System.out.println("-----------------------------------------------");
-                System.out.println("Server " + server + " average load in last 1 minute:" + t[k + 1].substring(0, t[k + 1].length() - 1));
+                System.out.println("Server " + server + " average load in last 1 minute:" +t );
                 System.out.println("-----------------------------------------------");
 
 
                 session.disconnect();
                 System.out.println("Command Executed");
                 System.out.println("DONE");
-                return t[k + 1].substring(0, t[k + 1].length() - 1);
-            } else {
-
-                System.out.println("-----------------------------------------------");
-                System.out.println("Error in uptime");
-                System.out.println("-----------------------------------------------");
-                return "0";
-            }
+                return t;
 
 
         } catch (Exception ex) {
@@ -96,5 +88,12 @@ public class Uptime {
         return "0";
     }
 
+
+    public static String removeLastCharacter(String str) {
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == 'x') {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
 
 }
