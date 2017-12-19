@@ -65,7 +65,7 @@ public class Uptime {
             //Take the information that I want from the whole string
             //Take the k+2 value that have the times and then split to take the avg
 
-            String t = removeLastCharacter(finalstr);
+            String t = finalstr.substring(0, finalstr.length() - 1);
 
                 System.out.println("-----------------------------------------------");
                 System.out.println("Server " + server + " average load in last 1 minute:" +t );
@@ -86,14 +86,6 @@ public class Uptime {
         }
 
         return "0";
-    }
-
-
-    public static String removeLastCharacter(String str) {
-        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == 'x') {
-            str = str.substring(0, str.length() - 1);
-        }
-        return str;
     }
 
 }
