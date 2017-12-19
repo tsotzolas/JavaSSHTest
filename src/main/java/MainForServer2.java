@@ -62,7 +62,12 @@ public class MainForServer2 {
                         if (uptime.contains(",")){
                             uptime = uptime.replace(",",".");
                         }
-                        ut = Double.valueOf(uptime);
+                        if (uptime.equals("0")){
+                            ut = 20;
+                            System.out.println("****************Error Uptime***************");
+                        }else {
+                            ut = Double.valueOf(uptime);
+                        }
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file

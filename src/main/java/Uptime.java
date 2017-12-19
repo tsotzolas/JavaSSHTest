@@ -62,8 +62,6 @@ public class Uptime {
             channel.disconnect();
 
 
-            //Take the information that I want from the whole string
-            //Take the k+2 value that have the times and then split to take the avg
 
             String t = finalstr.substring(0, finalstr.length() - 2);
 
@@ -85,7 +83,7 @@ public class Uptime {
 
         }
 
-        return "0";
+        return "20";
     }
 
 }
