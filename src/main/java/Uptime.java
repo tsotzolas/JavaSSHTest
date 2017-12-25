@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Uptime {
+    private static final String USER = "user";
+    private static final String PASSWORD = "6973533175";
 
     /**
      * Make Httping to the server to take the latency
@@ -17,23 +19,19 @@ public class Uptime {
      * @throws IOException
      */
     public static String callUptime(String host, Integer port, String server) throws JSchException, IOException {
-        String user = "user";
-        String password = "6973533175";
-//        String host = "83.212.102.71";
-//        int port = 2206;
 
         try {
-
             JSch jsch = new JSch();
-            Session session = jsch.getSession(user, host, port);
-            session.setPassword(password);
+            //Connect with ssh to the server
+            Session session = jsch.getSession(USER, host, port);
+            session.setPassword(PASSWORD);
             session.setConfig("StrictHostKeyChecking", "no");
             System.out.println("Establishing Connection...");
             session.connect();
             System.out.println("Connection established.");
 
-
             String finalstr = "";
+            //Execute the command that we want
             Channel channel = session.openChannel("exec");
             System.out.println("Execute command 'uptime  " + server);
             ((ChannelExec) channel).setCommand("uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3 }'");
@@ -60,15 +58,12 @@ public class Uptime {
             }
             in.close();
             channel.disconnect();
-
-
-
+            //Take the value that we want
             String t = finalstr.substring(0, finalstr.length() - 2);
 
                 System.out.println("-----------------------------------------------");
                 System.out.println("Server " + server + " average load in last 1 minute:" +t );
                 System.out.println("-----------------------------------------------");
-
 
                 session.disconnect();
                 System.out.println("Command Executed");
@@ -80,10 +75,7 @@ public class Uptime {
             System.out.println("-----------------------------------------------");
             System.out.println(ex);
             System.out.println("-----------------------------------------------");
-
         }
-
         return "20";
     }
-
 }
