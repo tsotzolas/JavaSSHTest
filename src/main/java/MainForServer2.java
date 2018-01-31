@@ -143,7 +143,7 @@ public class MainForServer2 {
 
 
                 fw.write("Apdex Score   |   DLoad       | Average Load  | Average Responce Time \n");//appends the string to the file
-//                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
+                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
 
                 System.out.println("Final Score : " + finalScore);
                 System.out.println("dLoad : " + dl);
