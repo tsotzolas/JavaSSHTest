@@ -142,8 +142,8 @@ public class MainForServer2 {
                 double dl = test / (Double.valueOf(totalTime) / 1000);
 
 
-                fw.write("Apdex Score   |   DLoad       | Average Load  | Average Responce Time \n");//appends the string to the file
-                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
+                fw.write("Apdex Score   |   DLoad       | Average Load  |     Average Responce Time \n");//appends the string to the file
+                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "    |     "+ finalResponceTime +" \n");//appends the string to the file
 
                 System.out.println("Final Score : " + finalScore);
                 System.out.println("dLoad : " + dl);
@@ -156,15 +156,6 @@ public class MainForServer2 {
             } finally {
                 fw.close();
             }
-
-//            try {
-//                Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
-//            } catch (Exception ex) {
-//                System.out.println("############### Exception ###############");
-//                System.out.println(ex);
-//                System.out.println("############### Exception ###############");
-//            }
-
 
 //            session.disconnect();
             System.out.println("Command Executed");
