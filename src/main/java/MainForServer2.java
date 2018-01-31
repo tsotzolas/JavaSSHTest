@@ -82,8 +82,6 @@ public class MainForServer2 {
                     }
 
 
-
-
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write("--------"+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"");//appends the string to the file
@@ -103,24 +101,20 @@ public class MainForServer2 {
                     }
 
 
-
                     averageLoad += ut;
 
-                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
+//                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
                     System.out.println("----------------Responce Time----------------");
-                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
+//                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
                     System.out.println(responceTimeCurl);
                     System.out.println("---------------------------------------------");
 
                 }
 
 
-
-
-
                 long endTime = System.currentTimeMillis();
 
-                finalResponceTime = responceTimeCurl/10;
+                finalResponceTime = responceTimeCurl / 10;
 
                 finalScore = (satisfied + (tolerating / 2)) / 10;
                 System.out.println("Final Score : " + finalScore);
@@ -178,13 +172,14 @@ public class MainForServer2 {
 
     }
 
-
     public static String ResponceTimeCurlLocal() {
         // read the output from the command
-        String s="";
+        String s = "";
+        String t = "";
 
         try {
-            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\\\\\\\\n  http://10.0.0.7:8080/lab/login.jsf\\n\"");
+            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\n  http://10.0.0.7:8080/lab/login.jsf\\n\"");
+//            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\n  http://google.com\\n\"");
             // you can pass the system command or a script to exec command. here i used uname -a system command
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
@@ -195,20 +190,20 @@ public class MainForServer2 {
 
             while ((s = stdInput.readLine()) != null) {
                 System.out.println("Std OUT: "+s);
+                t += s;
             }
 
             while ((s = stdError.readLine()) != null) {
-                System.out.println("Std ERROR : "+s);
+                System.out.println("Std ERROR : " + s);
             }
 
-            return s;
+//            return t;
 
         } catch (IOException e) {
 
             e.printStackTrace();
         }
-
-        return s;
+        return t;
     }
 
 }
