@@ -42,7 +42,7 @@ public class MainForServer2 {
             double l1 = 0;
             double l2 = 0;
 
-            double responceTimeCurl = 0;
+            Double responceTimeCurl = new Double(0);
             double finalResponceTime = 0;
 
             FileWriter fw = new FileWriter(FILENAME, true); //the true will append the new data
@@ -105,7 +105,7 @@ public class MainForServer2 {
 
                     responceTimeCurl +=  Double.parseDouble((ResponceTimeCurlLocal()));
                     System.out.println("----------------Responce Time----------------");
-//                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
+                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
                     System.out.println(ResponceTimeCurlLocal());
                     System.out.println("---------------------------------------------");
 
@@ -135,7 +135,7 @@ public class MainForServer2 {
 
 
                 fw.write("Apdex Score   |   DLoad       | Average Load  | Average Responce Time \n");//appends the string to the file
-                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
+//                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
 
                 System.out.println("Final Score : " + finalScore);
                 System.out.println("dLoad : " + dl);
