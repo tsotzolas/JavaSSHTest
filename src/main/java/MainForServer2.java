@@ -1,10 +1,8 @@
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+import org.junit.Test;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 
 public class MainForServer2 {
@@ -21,7 +19,7 @@ public class MainForServer2 {
     private static final String FILENAME = "/home/user/filename.txt";
 //    private static final String FILENAME = "/home/tsotzo/Desktop/filename.txt";
 
-    private static final double  T = 1;
+    private static final double T = 1;
 
     public static void main(String[] args) throws IOException {
         String finalString = "";
@@ -45,42 +43,47 @@ public class MainForServer2 {
             double l1 = 0;
             double l2 = 0;
 
-            FileWriter fw = new FileWriter(FILENAME,true); //the true will append the new data
+            double responceTimeCurl = 0;
+            double finalResponceTime = 0;
+
+            FileWriter fw = new FileWriter(FILENAME, true); //the true will append the new data
             try {
 
 //                fw.write("Time to load  page   |  Load       | \n");//appends the string to the file
 
                 long startTime = System.currentTimeMillis();
-                    for (int i=0;i<10;i++) {
-                        System.out.println(i);
+                for (int i = 0; i < 10; i++) {
+                    System.out.println(i);
 
-                        double rt = 0;
-                        rt = ApdexMeasure.responceTime();
-                        System.out.println(rt);
-                        Thread.sleep(500);
-                        double ut = 0;
-                        String uptime = "";
-                        uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
+                    double rt = 0;
+                    rt = ApdexMeasure.responceTime();
+                    System.out.println(rt);
+                    Thread.sleep(500);
+                    double ut = 0;
+                    String uptime = "";
+                    uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
 //                        uptime = Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
 
-                        if (uptime.contains(",")){
-                            uptime = uptime.replace(",",".");
-                        }
-                        if (uptime.equals("0")){
-                            ut = averageLoad/(i+1);
+                    if (uptime.contains(",")) {
+                        uptime = uptime.replace(",", ".");
+                    }
+                    if (uptime.equals("0")) {
+                        ut = averageLoad / (i + 1);
 
-                            System.out.println("****************Error Uptime***************");
-                        }else {
-                            ut = Double.valueOf(uptime);
-                        }
+                        System.out.println("****************Error Uptime***************");
+                    } else {
+                        ut = Double.valueOf(uptime);
+                    }
 
-                        if (i==0){
-                            l1 = ut;
-                        }
-                        if(i==9){
-                            l2 = ut;
-                        }
-                        System.out.println("Uptime----->"+ uptime);
+                    if (i == 0) {
+                        l1 = ut;
+                    }
+                    if (i == 9) {
+                        l2 = ut;
+                    }
+
+
+
 
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+ ResponceTime.callResponceTime()+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
 //                        fw.write(Httping.callHttping(session, SERVER2)+"      |    "+ Uptime.callUptime(HOST, SERVER2_PORT, SERVER2)+ "   |   "+"---"+ "     |        "+ResponceTimeCurl.responceTime(session,SERVER2)+"\n");//appends the string to the file
@@ -92,54 +95,61 @@ public class MainForServer2 {
 //                        System.out.println(ResponceTime.callResponceTime());
 //                        Thread.sleep(500);
 
-                            if (rt <= T) {
-                                satisfied += 1;
-                            }
-
-                            if (rt < 4 * T && rt > T) {
-                                tolerating += 1;
-                            }
-
-                        averageLoad += ut;
-
+                    if (rt <= T) {
+                        satisfied += 1;
                     }
+
+                    if (rt < 4 * T && rt > T) {
+                        tolerating += 1;
+                    }
+
+
+
+                    averageLoad += ut;
+
+                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
+
+
+                }
+
+
+
+
+
                 long endTime = System.currentTimeMillis();
 
-            finalScore = (satisfied + (tolerating/2))/10;
-                System.out.println("Final Score : "+finalScore);
-                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
+                finalResponceTime = responceTimeCurl/10;
+
+                finalScore = (satisfied + (tolerating / 2)) / 10;
+                System.out.println("Final Score : " + finalScore);
+                fw.write("---------------------------------------------" + "\n");//appends the string to the file
 //                fw.write("Final Score : "+finalScore+"\n" );//appends the string to the file
 //                fw.write("Average Load : "+averageLoad/10+"\n" );//appends the string to the file
 //                fw.write("---------------------------------------------"+"\n" );//appends the string to the file
 
 
-
-
                 //
                 long totalTime = (endTime - startTime);
 
-                double test = l2 - l1 ;
+                double test = l2 - l1;
 //                if (test<0){
 //                    test = test*(-1);
 //                }
-                double dl = test/(Double.valueOf(totalTime)/1000);
+                double dl = test / (Double.valueOf(totalTime) / 1000);
 
 
-                fw.write("Apdex Score   |   DLoad       | Average Load  \n");//appends the string to the file
-                fw.write(finalScore+ "           |   "+dl+"    |    "+ averageLoad/10+" \n");//appends the string to the file
+                fw.write("Apdex Score   |   DLoad       | Average Load  | Average Responce Time \n");//appends the string to the file
+                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
 
-                System.out.println("Final Score : "+finalScore);
-                System.out.println("dLoad : "+ dl);
-
-
-
+                System.out.println("Final Score : " + finalScore);
+                System.out.println("dLoad : " + dl);
 
 
             } catch (Exception ex) {
                 System.out.println("######1######### Exception ###############");
                 System.out.println(ex);
                 System.out.println("############### Exception ###############");
-            }finally {
+            } finally {
                 fw.close();
             }
 
@@ -152,19 +162,10 @@ public class MainForServer2 {
 //            }
 
 
-
-
-
-
-
-
 //            session.disconnect();
             System.out.println("Command Executed");
             System.out.println("DONE");
             System.out.println(finalString);
-
-
-
 
 
         } catch (Exception e) {
@@ -174,6 +175,40 @@ public class MainForServer2 {
         }
 
     }
+
+
+    public static String ResponceTimeCurlLocal() {
+        // read the output from the command
+        String s="";
+
+        try {
+            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\\\\\\\\n  http://10.0.0.7:8080/lab/login.jsf\\n\"");
+            // you can pass the system command or a script to exec command. here i used uname -a system command
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(p.getInputStream()));
+
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(p.getErrorStream()));
+
+
+            while ((s = stdInput.readLine()) != null) {
+                System.out.println("Std OUT: "+s);
+            }
+
+            while ((s = stdError.readLine()) != null) {
+                System.out.println("Std ERROR : "+s);
+            }
+
+            return s;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        return s;
+    }
+
 }
 
 
