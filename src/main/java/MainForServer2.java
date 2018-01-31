@@ -103,7 +103,7 @@ public class MainForServer2 {
 
                     averageLoad += ut;
 
-                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
+                    responceTimeCurl +=  Double.parseDouble((ResponceTimeCurlLocal()));
                     System.out.println("----------------Responce Time----------------");
 //                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
                     System.out.println(ResponceTimeCurlLocal());
