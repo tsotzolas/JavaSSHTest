@@ -1,6 +1,5 @@
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import org.junit.Test;
 
 import java.io.*;
 
