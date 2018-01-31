@@ -103,7 +103,7 @@ public class MainForServer2 {
 
                     averageLoad += ut;
 
-//                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
+                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
                     System.out.println("----------------Responce Time----------------");
 //                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
                     System.out.println(ResponceTimeCurlLocal());
@@ -134,8 +134,8 @@ public class MainForServer2 {
                 double dl = test / (Double.valueOf(totalTime) / 1000);
 
 
-//                fw.write("Apdex Score   |   DLoad       | Average Load  | Average Responce Time \n");//appends the string to the file
-//                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
+                fw.write("Apdex Score   |   DLoad       | Average Load  | Average Responce Time \n");//appends the string to the file
+                fw.write(finalScore + "           |   " + dl + "    |    " + averageLoad / 10 + "          |              "+ finalResponceTime +" \n");//appends the string to the file
 
                 System.out.println("Final Score : " + finalScore);
                 System.out.println("dLoad : " + dl);
