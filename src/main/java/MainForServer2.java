@@ -106,7 +106,7 @@ public class MainForServer2 {
 //                    responceTimeCurl += Double.valueOf(ResponceTimeCurlLocal());
                     System.out.println("----------------Responce Time----------------");
 //                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
-                    System.out.println(responceTimeCurl);
+                    System.out.println(ResponceTimeCurlLocal());
                     System.out.println("---------------------------------------------");
 
                 }
