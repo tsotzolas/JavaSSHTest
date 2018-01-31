@@ -103,10 +103,18 @@ public class MainForServer2 {
 
                     averageLoad += ut;
 
-                    responceTimeCurl +=  Double.parseDouble((ResponceTimeCurlLocal()));
+
+
+                    System.out.println("1");
+                    String temp = ResponceTimeCurlLocal();
+                    if (temp.contains(",")) {
+                        temp = temp.replace(",", ".");
+                    }
+                    responceTimeCurl +=  Double.valueOf(temp);
+                    System.out.println("2");
                     System.out.println("----------------Responce Time----------------");
-                    System.out.println(Double.valueOf(ResponceTimeCurlLocal()));
-                    System.out.println(ResponceTimeCurlLocal());
+                    System.out.println(Double.valueOf(temp));
+                    System.out.println(responceTimeCurl);
                     System.out.println("---------------------------------------------");
 
                 }
