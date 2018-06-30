@@ -7,7 +7,7 @@ import java.io.*;
 public class MainForServer2 {
 
     private static final String SERVER1 = "10.0.0.6";
-    private static final String SERVER2 = "10.0.0.7";
+    private static final String SERVER2 = "app.zapto.org";
     private static final String HOST = "83.212.102.71";
     private static final String USER = "user";
     private static final String PASSWORD = "6973533175";
@@ -15,7 +15,7 @@ public class MainForServer2 {
     private static final Integer SERVER1_PORT = 2206;
     private static final Integer SERVER2_PORT = 2207;
 
-    private static final String FILENAME = "/home/user/filename.txt";
+    private static final String FILENAME = "/home/tsotzo/filename.txt";
 //    private static final String FILENAME = "/home/tsotzo/Desktop/filename.txt";
 
     private static final double T = 1;
@@ -24,15 +24,6 @@ public class MainForServer2 {
         String finalString = "";
 
         try {
-//            JSch jsch = new JSch();
-//            Session session = jsch.getSession(USER, HOST, BALANCER_PORT);
-//            session.setPassword(PASSWORD);
-//            session.setConfig("StrictHostKeyChecking", "no");
-//            System.out.println("Establishing Connection...");
-//            session.connect();
-//            System.out.println("Connection established.");
-//            System.out.println("Crating SFTP Channel.");
-
 
             double satisfied = 0;
             double tolerating = 0;
@@ -60,7 +51,7 @@ public class MainForServer2 {
                     Thread.sleep(500);
                     double ut = 0;
                     String uptime = "";
-                    uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
+                    uptime = Uptime.callUptime(SERVER2, SERVER2_PORT, SERVER2);
 //                        uptime = Uptime.callUptime(HOST, SERVER2_PORT, SERVER2);
 
                     if (uptime.contains(",")) {
@@ -186,7 +177,7 @@ public class MainForServer2 {
         String t = "";
 
         try {
-            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\n  http://10.0.0.7:8080/lab/login.jsf\\n\"");
+            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\n  https://app.zapto.org/lab/login.jsf\\n\"");
 //            Process p = Runtime.getRuntime().exec("curl -o /dev/null -s -w %{time_total}\n  http://google.com\\n\"");
             // you can pass the system command or a script to exec command. here i used uname -a system command
             BufferedReader stdInput = new BufferedReader(new

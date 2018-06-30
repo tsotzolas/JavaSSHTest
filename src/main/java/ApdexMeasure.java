@@ -35,7 +35,7 @@ public class ApdexMeasure {
         WebDriver driver = null;
         try {
 
-            File file = new File("/home/user/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
+            File file = new File("/home/tsotzo/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
 //            File file = new File("/home/tsotzo/phantomjs-2.1.1-linux-x86_64/bin/phantomjs");
 
             System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
@@ -50,8 +50,8 @@ public class ApdexMeasure {
 
             driver = new PhantomJSDriver();
             driver = new PhantomJSDriver(caps);
-            driver.get("http://10.0.0.7:8080/lab/login.jsf");
-//            driver.get("https://app.zapto.org/lab/login.jsf");
+//            driver.get("http://10.0.0.7:8080/lab/login.jsf");
+            driver.get("https://app.zapto.org/lab/login.jsf");
 //        WebDriver driver = new FirefoxDriver();
 //        driver.get("https://app.zapto.org/lab/login.jsf");
 //        Thread.sleep(1000);
