@@ -5,7 +5,7 @@ import java.io.IOException;
 public class MainForServer2 {
 
     private static final String SERVER1 = "10.0.0.6";
-    private static final String SERVER2 = "10.0.0.7";
+    private static final String SERVER2 = "app.zapto.org";
     private static final String HOST = "83.212.102.71";
     private static final String USER = "user";
     private static final String PASSWORD = "6973533175";
@@ -14,9 +14,9 @@ public class MainForServer2 {
     private static final Integer SERVER2_PORT = 2207;
 
     //    private static final String FILENAME = "/filename.txt";
-    private static final String FILENAME = "/home/user/filename.txt";
+    private static final String FILENAME = "/home/tsotzo/filename.txt";
 
-    private static final double T = 1;
+    private static final double T = 3;
 
     public static void main(String[] args) throws IOException {
         String finalString = "";
@@ -40,7 +40,7 @@ public class MainForServer2 {
                     double ut = 0;
                     String uptime = "";
                     //Measure the load of the server
-                    uptime = Uptime.callUptime(SERVER2, 22, SERVER2);
+                    uptime = Uptime.callUptime(SERVER2, SERVER2_PORT, SERVER2);
                     System.out.println("Uptime----->" + uptime);
                     if (uptime.contains(",")) {
                         uptime = uptime.replace(",", ".");
